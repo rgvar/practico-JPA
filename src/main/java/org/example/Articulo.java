@@ -1,0 +1,38 @@
+package org.example;
+
+import lombok.*;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+public class Articulo implements Serializable
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String denominacion;
+    private int cantidad;
+    private int precio;
+
+    // Relación artículo - detalles
+    @OneToMany(mappedBy = "articulo", cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "detalle_id")
+    @Builder.Default
+    private Set<DetalleFactura> detalles = new HashSet<>();
+
+    // Relación artículos - categorías
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "articulo_categoria",
+            joinColumns = @JoinColumn(name = "articulo_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    @Builder.Default
+    private Set<Categoria> categorias = new HashSet<>();
+}
