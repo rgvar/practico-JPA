@@ -4,9 +4,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "factura")
+@EqualsAndHashCode(exclude = "factura")
 @Builder
 @Entity
 public class DetalleFactura implements Serializable

@@ -4,9 +4,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "cliente")
+@EqualsAndHashCode(exclude = "cliente")
 @Builder
 @Entity
 public class Domicilio implements Serializable

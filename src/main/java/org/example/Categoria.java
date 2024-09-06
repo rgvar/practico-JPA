@@ -6,9 +6,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Builder
 @Entity
 public class Categoria implements Serializable
@@ -19,7 +21,7 @@ public class Categoria implements Serializable
     private String denominacion;
 
     // Relación artículos - categorías
-    @ManyToMany(mappedBy = "categorias")
+    @ManyToMany(mappedBy = "categorias", cascade = CascadeType.PERSIST)
     @Builder.Default
     private Set<Articulo> articulos = new HashSet<>();
 

@@ -6,9 +6,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Builder
 @Entity
 public class Factura implements Serializable
@@ -26,10 +28,7 @@ public class Factura implements Serializable
     private Cliente cliente;
 
     // Relación factura - detalles
-    @OneToMany(mappedBy = "factura",
-               cascade = CascadeType.ALL,
-               orphanRemoval = true)
-    @JoinColumn(name = "factura_id")
+    @OneToMany(mappedBy ="factura", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private Set<DetalleFactura> detalles = new HashSet<>();
 
